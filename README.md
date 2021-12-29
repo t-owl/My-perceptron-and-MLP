@@ -176,4 +176,13 @@ class 1 vs rest --> Training accuracy: 66.62 | Testing accuracy: 66.67
 class 2 vs rest --> Training accuracy: 66.71 | Testing accuracy: 66.67
 class 3 vs rest --> Training accuracy: 66.62 | Testing accuracy: 66.67
 ```
+## Running
+
+To run the code the following comand should be used:
+
+- python MyPerceptron.py
+
+By default the code will run using an l2 value of 0.001 but if user needs to test different values, the user can add arguments to this comand such as:
+
+- python MyPerceptron.py 0.01 
 
