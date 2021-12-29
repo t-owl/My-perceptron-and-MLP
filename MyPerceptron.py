@@ -1,6 +1,3 @@
-# Camilo Pinzon
-# 201189434
-
 import sys
 import numpy as np
 
