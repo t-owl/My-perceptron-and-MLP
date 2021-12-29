@@ -113,9 +113,9 @@ class 3 vs rest --> Training accuracy: 85.00 | Testing accuracy: 90.00
 
 ## Implementation multi-class classification - regularised
 
-While applying an $l_2$ regularisation term of value 0.001, we get an improved accuracy compared to the results without regularisation, on the other hand values above these get worse as we test all of them.
+While applying an l2 regularisation term of value 0.001, we get an improved accuracy compared to the results without regularisation, on the other hand values above these get worse as we test all of them.
 
-#### $\lambda= 0.001$ 
+#### λ= 0.001
 
 ```
 ---------- 1-vs-rest Approach (classX vs rest) - regularised ----------
@@ -127,7 +127,7 @@ class 3 vs rest --> Training accuracy: 90.67 | Testing accuracy: 100.00
 
 
 
-#### $\lambda= 0.01$ 
+#### λ= 0.01
 
 ```
 ---------- 1-vs-rest Approach (classX vs rest) - regularised ----------
@@ -137,7 +137,7 @@ class 2 vs rest --> Training accuracy: 50.08 | Testing accuracy: 53.33
 class 3 vs rest --> Training accuracy: 93.92 | Testing accuracy: 96.67
 ```
 
-#### $\lambda= 0.1$ 
+#### λ= 0.1
 
 ```
 ---------- 1-vs-rest Approach (classX vs rest) - regularised ----------
@@ -147,7 +147,7 @@ class 2 vs rest --> Training accuracy: 44.33 | Testing accuracy: 36.67
 class 3 vs rest --> Training accuracy: 66.62 | Testing accuracy: 66.67
 ```
 
-#### $\lambda= 1.0$ 
+#### λ= 1.0 
 
 ```
 ---------- 1-vs-rest Approach (classX vs rest) - regularised ----------
@@ -157,7 +157,7 @@ class 2 vs rest --> Training accuracy: 42.38 | Testing accuracy: 33.33
 class 3 vs rest --> Training accuracy: 66.62 | Testing accuracy: 66.67
 ```
 
-#### $\lambda= 10.0$ 
+#### λ= 10.0
 
 ```
 ---------- 1-vs-rest Approach (classX vs rest) - regularised ----------
@@ -167,7 +167,7 @@ class 2 vs rest --> Training accuracy: 66.71 | Testing accuracy: 66.67
 class 3 vs rest --> Training accuracy: 66.62 | Testing accuracy: 66.67
 ```
 
-#### $\lambda= 100.0$ 
+#### λ= 100.0
 
 ```
 ---------- 1-vs-rest Approach (classX vs rest) - regularised ----------
