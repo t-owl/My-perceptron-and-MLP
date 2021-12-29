@@ -1,3 +1,4 @@
+# Perceptron
 ## Perceptron algorithm
 
 A Perceptron is the most basic processing unit that we are going to find within a neural network, similar to a biological neuron. These Perceptron have input connections through which they receive external stimuli "the input values", with these values the Perceptron will perform an internal calculation and generate an output value.
