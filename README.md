@@ -187,3 +187,163 @@ By default the code will run using an l2 value of 0.001 but if user needs to tes
 
 ```python MyPerceptron.py 0.01```
 
+# Multilayer perceptron (MLP)
+In the previous task we worked with a single layer perceptron, which help us understand how by applying linear regression we could classify binary data such as AND, and OR gates. To overcome more complex classification problems we would then use a combination of perceptron layers, problems such as XOR gates or even problems with more complexity.
+
+There are two ways of putting neurons together, one is to put them in the same layer (same column), as we can see bellow neurons on the same layer will receive the output from the previous layer and they will then output their result to the next layer. By placing layers next to each other we can achieve hierarchical knowledge, in other words the first layers of the network will hold basic information (e.g. borders in a picture, corners in a picture, etc), where as the last layers will have a more abstract knowledge combining previous layers (e.g. cars in a picture, trees in a picture, etc). 
+
+![](https://i.imgur.com/VvERANv.png)
+
+
+
+There is a problem with this approach, if we were just to add many perceptrons together, we would end up with the equivalent of 1 perceptron, as all a perceptron does is to solve a linear regression problem, i.e. adding many linear regression problems is equivalent to just one. However to overcome this we choose to activation functions that output a non linear result (Sigmoid function, ReLU function, etc).
+
+Once we've build our network we need to train it, but unlike the single perceptron we have many weights to adjust, depending on the size of the network adjusting every weight would not be viable, so that is where we used the backpropagation algorithm. I order to mitigate this problem we walk backwards, instead of walking from the input to the output which then produces a loss signal, we start from the loss signal and walk backwards, this is possible because in a neural network the mistake in previous layers directly affects later layers.
+
+<div style="page-break-after: always; break-after: page;"></div>
+
+### Implementation 
+
+The data set used in this MLP was extracted from Sklearn, we used two circles as for the classification task the created dataset is shown below.
+
+![](https://i.imgur.com/CKTdCjx.png)
+
+Once the data is created we can now build our neural network, to start with we need our layer layout, this is implemented by the `neural_layer():` class:
+
+- In this class we need the number of connections that go as input from previous layers `n_con`
+- We also have to initiate the number of neurons that are currently in this layer `n_neuron`
+- The bias and weight are also initialised
+- Finally we pass the activation function `act_f` (Sigmoid function, ReLU function, etc).
+
+Now we define our activation functions, each function is in charge of generating non linear outputs which makes possible the combination of many perceptrons, each function is stated as a formula but a derivative is also needed for the backpropagation algorithm, (Codesansar, 2019):
+
+<div style="page-break-after: always; break-after: page;"></div>
+
+- **Sigmoid function:** 
+
+  - Mathematical function
+
+  
+  <img src="https://render.githubusercontent.com/render/math?math=f(x) = \sigma(x) = \frac{1}{1+e^{-x}}">
+   
+
+  ![](https://i.imgur.com/F1gJOqI.png)
+
+  - Derivative
+    
+    <img src="https://render.githubusercontent.com/render/math?math=f'(x) = \sigma(x) ( 1 - \sigma(x) )">
+    
+ 
+    ![](https://i.imgur.com/6gzVEX1.png)
+
+  <div style="page-break-after: always; break-after: page;"></div>
+
+- **Tangent Hyperbolic Function:** 
+
+  - Mathematical function
+    
+    <img src="https://render.githubusercontent.com/render/math?math=f(x) = \frac{e^{x} - e^{-x}}{e^{x} + e^{-x}}">
+    
+    
+    ![](https://i.imgur.com/jeWKdv7.png)
+
+  - Derivative
+    
+    <img src="https://render.githubusercontent.com/render/math?math=f'(x) = ( 1 - g(x)^{2} )">
+    
+    ![](https://i.imgur.com/UhoS4e7.png)
+
+  <div style="page-break-after: always; break-after: page;"></div>
+
+- **Rectified Linear Unit (RELU) Function** 
+
+  - Mathematical function
+    
+    <img src="https://render.githubusercontent.com/render/math?math=f(x) = max(0,x)">
+    
+    
+    ![](https://i.imgur.com/4PH5Ogg.png)
+
+  - Derivative
+    
+    <img src="https://render.githubusercontent.com/render/math?math=f(x) = \begin{cases} \text{1, x>0} \\ \text{0, otherwise} \end{cases}">
+    
+    
+    ![](https://i.imgur.com/2uJP640.png)
+
+<div style="page-break-after: always; break-after: page;"></div>
+
+Once the activation function is created, we defined a function which is in charge of creating  our neural network `create_nn()`, our neural network will be defined by our `topology` variable which will hold the structure of the neural network.
+
+After the creation of our network we will train our network, training has 3 essential elements, Forward pass,  Backward pass (Backpropagation) and Gradient descent (mlnotebook.github.io, 2017) 
+
+Forward pass takes an input and an output (desired output), and processes them by using activation functions and basic formulas to generate an output. during the first stages of the training the output generated will be a random value, but as we continue the training the initial value will change into a closer value to the desire output.(Skalski, 2018)
+
+Backward pass (Backpropagation), once forward pass generates an output, this would then be compared against the desired output (real value) by using the cost function, this tells us how different are the results to each other which results in an error value. The backpropagation algorithm takes the error value generated as well as the  derivatives of the activation functions, to calculate the partial derivatives.
+
+1. **Computation of the error of the last layer**
+
+
+<img src="https://render.githubusercontent.com/render/math?math=\delta^{L}=\frac{\partial C}{\partial a^{L}} \cdot \frac{\partial a^{L}}{\partial z^{L}}">
+
+
+
+2. **Backpropagate the error to the previous layer**
+
+
+<img src="https://render.githubusercontent.com/render/math?math=\delta^{l-1}=W^{l} \delta^{l} \cdot \frac{\partial a^{l-1}}{\partial z^{l-1}}">
+
+
+
+3. **Calculate the derivatives of the layer using the error**
+
+
+<img src="https://render.githubusercontent.com/render/math?math=\frac{\partial \alpha}{\partial b^{l-1}}=\delta^{l-1} \quad \frac{\partial C}{\partial w^{l-1}}=\delta^{l-1} a^{l-2}">
+
+
+Gradient descent takes the pre-calculated partial derivatives, to optimise the cost function, i.e. it will train our network. (Santana Vega, 2018)
+
+### Output/ experiments
+
+As part of the experiment I was able to produce some interesting results on the input data, by trying different activation functions 
+
+To further illustrate the outcome a graph was produced showing the classification as well as the error graph following the gradient descent.
+
+
+
+#### Sigmoid Classification
+
+The Sigmoid activation function had a great performance over the input data, by classifying the dataset in the least amount of iterations (1000) with a learning rate equal to 0.05, Sigmoid tends to perform better in binary classification, consequently working well with the problem presented 
+
+
+
+![](https://i.imgur.com/EFKa2eg.png)
+
+![](https://i.imgur.com/S3LpwJV.png)
+
+#### Tanh or Hyperbolic Classification
+
+As the algorithm was build around the Sigmoid function there was a similar performance when it came to Tanh optimising the cost function on the same number of iterations as Sigmoid (1000), on the other hand a smaller learning rate performed better on this case learning rate = 0.001
+
+![](https://i.imgur.com/lHrOZQf.png)
+
+![](https://i.imgur.com/R9NTJfx.png)
+
+
+
+#### Rectified Linear Unit (RELU) Clasification
+
+ReLU reflected the worst performance over all, this would be due to the nature of ReLU, the neural network algorithm uses the same activation function across all its layers, where as ReLU  should only be used within the hidden layers. 
+
+As part of the results, in most of the runs of the algorithm, neurons died through the training which resulted in a non correct output.
+
+*"Another problem with ReLu is that some gradients can be fragile during training and can die. It can cause a weight update which will makes it never activate on any data point again. Simply saying that ReLu could result in Dead Neurons"* (Omkar, 2019)
+
+In the cases where the neurons did not died the algorithm used the following values: learning rate=0.005, iterations = 20000. and the graph produced where the following:
+
+![](https://i.imgur.com/kzkiR1n.png)
+
+![](https://i.imgur.com/SH5pevk.png)
+
+<div style="page-break-after: always; break-after: page;"></div>
+
