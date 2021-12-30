@@ -200,7 +200,6 @@ There is a problem with this approach, if we were just to add many perceptrons t
 
 Once we've build our network we need to train it, but unlike the single perceptron we have many weights to adjust, depending on the size of the network adjusting every weight would not be viable, so that is where we used the backpropagation algorithm. I order to mitigate this problem we walk backwards, instead of walking from the input to the output which then produces a loss signal, we start from the loss signal and walk backwards, this is possible because in a neural network the mistake in previous layers directly affects later layers.
 
-<div style="page-break-after: always; break-after: page;"></div>
 
 ### Implementation 
 
@@ -217,61 +216,57 @@ Once the data is created we can now build our neural network, to start with we n
 
 Now we define our activation functions, each function is in charge of generating non linear outputs which makes possible the combination of many perceptrons, each function is stated as a formula but a derivative is also needed for the backpropagation algorithm, (Codesansar, 2019):
 
-<div style="page-break-after: always; break-after: page;"></div>
 
 - **Sigmoid function:** 
 
   - Mathematical function
 
   
-  <img src="https://render.githubusercontent.com/render/math?math=f(x) = \sigma(x) = \frac{1}{1+e^{-x}}">
+    <img src="https://render.githubusercontent.com/render/math?math=f(x) = \sigma(x) = \frac{1}{1+e^{-x}}#gh-light-mode-only"><img src="https://render.githubusercontent.com/render/math?math=\color{White}f(x) = \sigma(x) = \frac{1}{1+e^{-x}}#gh-dark-mode-only">
    
 
-  ![](https://i.imgur.com/F1gJOqI.png)
+    ![](https://i.imgur.com/F1gJOqI.png)
 
   - Derivative
     
-    <img src="https://render.githubusercontent.com/render/math?math=f'(x) = \sigma(x) ( 1 - \sigma(x) )">
+    <img src="https://render.githubusercontent.com/render/math?math=f'(x) = \sigma(x) ( 1 - \sigma(x) )#gh-light-mode-only"><img src="https://render.githubusercontent.com/render/math?math=\color{White}f'(x) = \sigma(x) ( 1 - \sigma(x) )#gh-dark-mode-only">
     
  
     ![](https://i.imgur.com/6gzVEX1.png)
 
-  <div style="page-break-after: always; break-after: page;"></div>
 
 - **Tangent Hyperbolic Function:** 
 
   - Mathematical function
     
-    <img src="https://render.githubusercontent.com/render/math?math=f(x) = \frac{e^{x} - e^{-x}}{e^{x} + e^{-x}}">
+    <img src="https://render.githubusercontent.com/render/math?math=f(x) = \frac{e^{x} - e^{-x}}{e^{x} + e^{-x}}#gh-light-mode-only"><img src="https://render.githubusercontent.com/render/math?math=\color{White}f(x) = \frac{e^{x} - e^{-x}}{e^{x} + e^{-x}}#gh-dark-mode-only">
     
     
     ![](https://i.imgur.com/jeWKdv7.png)
 
   - Derivative
     
-    <img src="https://render.githubusercontent.com/render/math?math=f'(x) = ( 1 - g(x)^{2} )">
+    <img src="https://render.githubusercontent.com/render/math?math=f'(x) = ( 1 - g(x)^{2} )#gh-light-mode-only"><img src="https://render.githubusercontent.com/render/math?math=\color{White}f'(x) = ( 1 - g(x)^{2} )#gh-dark-mode-only">
     
     ![](https://i.imgur.com/UhoS4e7.png)
 
-  <div style="page-break-after: always; break-after: page;"></div>
 
 - **Rectified Linear Unit (RELU) Function** 
 
   - Mathematical function
     
-    <img src="https://render.githubusercontent.com/render/math?math=f(x) = max(0,x)">
+    <img src="https://render.githubusercontent.com/render/math?math=f(x) = max(0,x)#gh-light-mode-only"><img src="https://render.githubusercontent.com/render/math?math=\color{White}f(x) = max(0,x)#gh-dark-mode-only">
     
     
     ![](https://i.imgur.com/4PH5Ogg.png)
 
   - Derivative
     
-    <img src="https://render.githubusercontent.com/render/math?math=f(x) = \begin{cases} \text{1, x>0} \\ \text{0, otherwise} \end{cases}">
+    <img src="https://render.githubusercontent.com/render/math?math=f(x) = \begin{cases} \text{1, x>0} \\ \text{0, otherwise} \end{cases}#gh-light-mode-only"><img src="https://render.githubusercontent.com/render/math?math=\color{White}f(x) = \begin{cases} \text{1, x>0} \\ \text{0, otherwise} \end{cases}#gh-dark-mode-only">
     
     
     ![](https://i.imgur.com/2uJP640.png)
 
-<div style="page-break-after: always; break-after: page;"></div>
 
 Once the activation function is created, we defined a function which is in charge of creating  our neural network `create_nn()`, our neural network will be defined by our `topology` variable which will hold the structure of the neural network.
 
@@ -284,21 +279,21 @@ Backward pass (Backpropagation), once forward pass generates an output, this wou
 1. **Computation of the error of the last layer**
 
 
-<img src="https://render.githubusercontent.com/render/math?math=\delta^{L}=\frac{\partial C}{\partial a^{L}} \cdot \frac{\partial a^{L}}{\partial z^{L}}">
+	<img src="https://render.githubusercontent.com/render/math?math=\delta^{L}=\frac{\partial C}{\partial a^{L}} \cdot \frac{\partial a^{L}}{\partial z^{L}}#gh-light-mode-only"><img src="https://render.githubusercontent.com/render/math?math=\color{White}\delta^{L}=\frac{\partial C}{\partial a^{L}} \cdot \frac{\partial a^{L}}{\partial z^{L}}#gh-dark-mode-only">
 
 
 
 2. **Backpropagate the error to the previous layer**
 
 
-<img src="https://render.githubusercontent.com/render/math?math=\delta^{l-1}=W^{l} \delta^{l} \cdot \frac{\partial a^{l-1}}{\partial z^{l-1}}">
+	<img src="https://render.githubusercontent.com/render/math?math=\delta^{l-1}=W^{l} \delta^{l} \cdot \frac{\partial a^{l-1}}{\partial z^{l-1}}#gh-light-mode-only"><img src="https://render.githubusercontent.com/render/math?math=\color{White}\delta^{l-1}=W^{l} \delta^{l} \cdot \frac{\partial a^{l-1}}{\partial z^{l-1}}#gh-dark-mode-only">
 
 
 
 3. **Calculate the derivatives of the layer using the error**
 
 
-<img src="https://render.githubusercontent.com/render/math?math=\frac{\partial \alpha}{\partial b^{l-1}}=\delta^{l-1} \quad \frac{\partial C}{\partial w^{l-1}}=\delta^{l-1} a^{l-2}">
+	<img src="https://render.githubusercontent.com/render/math?math=\frac{\partial \alpha}{\partial b^{l-1}}=\delta^{l-1} \quad \frac{\partial C}{\partial w^{l-1}}=\delta^{l-1} a^{l-2}#gh-light-mode-only"><img src="https://render.githubusercontent.com/render/math?math=\color{White}\frac{\partial \alpha}{\partial b^{l-1}}=\delta^{l-1} \quad \frac{\partial C}{\partial w^{l-1}}=\delta^{l-1} a^{l-2}#gh-dark-mode-only">
 
 
 Gradient descent takes the pre-calculated partial derivatives, to optimise the cost function, i.e. it will train our network. (Santana Vega, 2018)
@@ -345,5 +340,4 @@ In the cases where the neurons did not died the algorithm used the following val
 
 ![](https://i.imgur.com/SH5pevk.png)
 
-<div style="page-break-after: always; break-after: page;"></div>
 
